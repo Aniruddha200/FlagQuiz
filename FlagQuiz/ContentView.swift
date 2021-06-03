@@ -7,6 +7,29 @@
 
 import SwiftUI
 
+// Custom Modifier
+
+struct CapsuleStyle: ViewModifier{
+	func body(content: Content) -> some View {
+		content
+			.clipShape(Capsule())
+			.overlay(
+				Capsule()
+					.stroke(Color.black, lineWidth: 2.0)
+			)
+			.shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: 5, x: 3.0, y: -5.0)
+	}
+}
+
+extension View{
+	func prettyButton()-> some View{
+		self.modifier(CapsuleStyle())
+	}
+}
+
+
+// Custom View
+
 struct CapsuleButton: View {
 	var indexNum: Int
 	var flagImage: Image
@@ -15,12 +38,8 @@ struct CapsuleButton: View {
 		Button(action: {self.action(indexNum)}){
 			self.flagImage
 		}
-		.clipShape(Capsule())
-		.overlay(
-			Capsule()
-				.stroke(Color.black, lineWidth: 2.0)
-		)
-		.shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: 5, x: 3.0, y: -5.0)
+		.prettyButton()
+		
 	}
 }
 
